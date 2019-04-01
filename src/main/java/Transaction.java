@@ -2,12 +2,18 @@ import java.util.Date;
 
 public class Transaction {
 
-    public String transactionId; // this is also the hash of the transaction.
+
+    public static int id;
+    public int transactionId;
     public String sender;
     public String receiver;
     public double amount;
     public long transactionTime;
     public String description;
+
+    static {
+        id=100;
+    }
 
     public Transaction() {
 
@@ -19,7 +25,7 @@ public class Transaction {
         this.amount = amount;
         this.description = description;
         this.transactionTime = new Date().getTime();
-        this.transactionId=calculateHash();
+        this.transactionId=id++;
 
     }
 
@@ -35,13 +41,5 @@ public class Transaction {
                 '}';
     }
 
-    public String calculateHash() {
-        String calculatedhash = StringUtil.applySha256(
-                transactionId +
-                        sender +
-                        receiver +
-                        amount
-        );
-        return calculatedhash;
-    }
+
 }
